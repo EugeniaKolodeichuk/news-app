@@ -203,7 +203,7 @@ function Navigation() {
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
               <MenuItem
-                key="profile"
+                key="logout"
                 component={NavLink}
                 to="/profile"
                 onClick={handleCloseUserMenu}
