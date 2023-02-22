@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 /* import { useAuth } from '../AuthContext';
 import styles from './Navigation.module.css'; */
 
@@ -215,7 +215,9 @@ function Navigation() {
           {/* )} */}
           <Box sx={{ flexGrow: 0, pl: 5 }}>
             <Tooltip title="Log In">
-              <LoginTwoToneIcon sx={{ p: 0, m: 0 }} />
+              <IconButton key="login" component={Link} to="/login">
+                <LoginTwoToneIcon sx={{ p: 0, m: 0, color: 'white' }} />
+              </IconButton>
             </Tooltip>
           </Box>
         </Toolbar>
