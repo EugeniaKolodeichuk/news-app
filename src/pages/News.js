@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Image } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPosts } from '../redux/operations';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,16 +19,23 @@ const Item = styled(Paper)(({ theme }) => ({
 const randomImage = 'https://source.unsplash.com/1600x900/?business';
 
 const News = () => {
-  const [posts, setPosts] = useState([]);
+  //const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(json => {
-        setPosts(json);
-        //console.log(posts);
-      });
-  }, []);
+  dispatch(fetchPosts());
+  const posts = useSelector(state => state.posts.posts);
+
+  /*   useEffect(() => {
+    dispatch(fetchPosts());
+    setPosts(allPosts);
+    console.log('posts', posts);
+  }, [dispatch(fetchPosts())]); */
+
+  //;
+
+  //const posts = useSelector(state => state.posts.posts);
+
+  //console.log(posts);
 
   return (
     <Box sx={{ width: '80%', m: 'auto' }}>
@@ -42,7 +51,6 @@ const News = () => {
                 alignItems: 'center',
                 display: 'flex',
                 flexDirection: 'column',
-                border: '1px solid black',
               }}
             >
               <img width="500px" src={randomImage} />
