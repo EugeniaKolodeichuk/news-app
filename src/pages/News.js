@@ -20,41 +20,15 @@ const randomImage = 'https://source.unsplash.com/1600x900/?business';
 
 const News = () => {
   const [page, setPage] = useState(1);
-  const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
 
-  const allPosts = useSelector(state => state.posts.posts);
+  const posts = useSelector(state => state.posts.posts);
 
-  useEffect(() => {
-    if (posts.length === 0 && page === 1) {
-      console.log('first step');
-      dispatch(fetchPosts(1));
-      console.log('allPosts1', allPosts);
-      setPosts(allPosts);
-      console.log('allPosts2', allPosts);
-      console.log(posts);
-    } else {
-      return;
-    }
-  }, [allPosts]);
+  useEffect(() => loadMore, []);
 
-  useEffect(() => {
-    if (page === 2) {
-      dispatch(fetchPosts(2));
-      setPosts(allPosts);
-    } else if (page > 2) {
-      console.log(page);
-      console.log('allPosts1', allPosts);
-      dispatch(fetchPosts(page));
-
-      console.log('allPosts2', allPosts);
-      console.log(posts);
-      setPosts(allPosts);
-    }
-  }, [page]);
-
-  const loadMore = page => {
+  const loadMore = () => {
     setPage(page + 1);
+    dispatch(fetchPosts(page));
   };
 
   return (
@@ -81,7 +55,7 @@ const News = () => {
             </Grid>
           ))}
       </Grid>
-      <button onClick={() => loadMore(page)}>Load more</button>
+      <button onClick={loadMore}>Load more</button>
     </Box>
   );
 };
