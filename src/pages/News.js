@@ -19,23 +19,43 @@ const Item = styled(Paper)(({ theme }) => ({
 const randomImage = 'https://source.unsplash.com/1600x900/?business';
 
 const News = () => {
-  //const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
 
-  dispatch(fetchPosts());
-  const posts = useSelector(state => state.posts.posts);
+  const allPosts = useSelector(state => state.posts.posts);
 
-  /*   useEffect(() => {
-    dispatch(fetchPosts());
-    setPosts(allPosts);
-    console.log('posts', posts);
-  }, [dispatch(fetchPosts())]); */
+  useEffect(() => {
+    if (posts.length === 0 && page === 1) {
+      console.log('first step');
+      dispatch(fetchPosts(1));
+      console.log('allPosts1', allPosts);
+      setPosts(allPosts);
+      console.log('allPosts2', allPosts);
+      console.log(posts);
+    } else {
+      return;
+    }
+  }, [allPosts]);
 
-  //;
+  useEffect(() => {
+    if (page === 2) {
+      dispatch(fetchPosts(2));
+      setPosts(allPosts);
+    } else if (page > 2) {
+      console.log(page);
+      console.log('allPosts1', allPosts);
+      dispatch(fetchPosts(page));
 
-  //const posts = useSelector(state => state.posts.posts);
+      console.log('allPosts2', allPosts);
+      console.log(posts);
+      setPosts(allPosts);
+    }
+  }, [page]);
 
-  //console.log(posts);
+  const loadMore = page => {
+    setPage(page + 1);
+  };
 
   return (
     <Box sx={{ width: '80%', m: 'auto' }}>
@@ -61,6 +81,7 @@ const News = () => {
             </Grid>
           ))}
       </Grid>
+      <button onClick={() => loadMore(page)}>Load more</button>
     </Box>
   );
 };
