@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Image } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from '../redux/operations';
+import { removePost } from '../redux/reducers/postsReducer';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,11 +25,15 @@ const News = () => {
 
   const posts = useSelector(state => state.posts.posts);
 
-  useEffect(() => loadMore, []);
+  //useEffect(() => loadMore, []);
 
   const loadMore = () => {
     setPage(page + 1);
     dispatch(fetchPosts(page));
+  };
+
+  const onDelete = id => {
+    dispatch(removePost(id));
   };
 
   return (
@@ -38,6 +43,7 @@ const News = () => {
           posts.map(post => (
             //console.log('post', post);
             <Grid
+              onClick={() => onDelete(post.id)}
               item
               xs={6}
               sx={{
