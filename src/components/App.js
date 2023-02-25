@@ -1,4 +1,3 @@
-import { Login } from '@mui/icons-material';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router';
 import { Layout } from './Layout';

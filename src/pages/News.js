@@ -6,8 +6,8 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Image } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts } from '../redux/operations';
-import { removePost } from '../redux/reducers/postsReducer';
+import { deletePost, fetchPosts } from '../redux/operations';
+import { removePost } from '../redux/operations';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,7 +25,7 @@ const News = () => {
 
   const posts = useSelector(state => state.posts.posts);
 
-  //useEffect(() => loadMore, []);
+  useEffect(() => loadMore, []);
 
   const loadMore = () => {
     setPage(page + 1);
@@ -33,17 +33,20 @@ const News = () => {
   };
 
   const onDelete = id => {
-    dispatch(removePost(id));
+    dispatch(deletePost(id));
+    console.log('posts', posts);
   };
+
+  const getTitle = post => post.body.charAt(0).toUpperCase() + post.body.slice(1);
 
   return (
     <Box sx={{ width: '80%', m: 'auto' }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {posts &&
           posts.map(post => (
-            //console.log('post', post);
             <Grid
               onClick={() => onDelete(post.id)}
+              key={post.id}
               item
               xs={6}
               sx={{
@@ -55,9 +58,9 @@ const News = () => {
             >
               <img width="500px" src={randomImage} />
               <Item key={post.id} sx={{ fontWeight: 'bold' }}>
-                {post.title.charAt(0).toUpperCase() + post.title.slice(1)}
+                {getTitle(post)}
               </Item>
-              <Item>{post.body.charAt(0).toUpperCase() + post.body.slice(1)}</Item>
+              <Item>{getTitle(post)}</Item>
             </Grid>
           ))}
       </Grid>

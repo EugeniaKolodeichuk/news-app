@@ -15,27 +15,6 @@ import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 
 import { Link, NavLink } from 'react-router-dom';
-/* import { useAuth } from '../AuthContext';
-import styles from './Navigation.module.css'; */
-
-//export const Navigation = () => {
-//const { userInfo } = useAuth();
-
-//return (
-//<nav>
-
-/* <NavLink className={styles.link} to="/">
-        Home
-      </NavLink>
-      {userInfo && (
-        <NavLink className={styles.link} to="/dashboard">
-          Dashboard
-        </NavLink>
-      )} */
-
-//</nav>
-//);
-//};
 
 const randomImage = 'https://source.unsplash.com/1600x900/?people';
 
@@ -171,7 +150,6 @@ function Navigation() {
             </Button>
           </Box>
 
-          {/* userInfo && ( */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -212,7 +190,6 @@ function Navigation() {
               </MenuItem>
             </Menu>
           </Box>
-          {/* )} */}
           <Box sx={{ flexGrow: 0, pl: 5 }}>
             <Tooltip title="Log In">
               <IconButton key="login" component={Link} to="/login">

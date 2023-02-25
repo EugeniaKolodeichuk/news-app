@@ -1,4 +1,4 @@
-import { addAllPostsAction } from './reducers/postsReducer';
+import { addAllPostsAction, removePost } from './reducers/postsReducer';
 
 export const fetchPosts = (page = 1) => {
   return function (dispatch) {
@@ -9,5 +9,13 @@ export const fetchPosts = (page = 1) => {
         dispatch(addAllPostsAction(json));
         return;
       });
+  };
+};
+
+export const deletePost = id => {
+  return function (dispatch) {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: 'DELETE',
+    }).then(dispatch(removePost(id)));
   };
 };
