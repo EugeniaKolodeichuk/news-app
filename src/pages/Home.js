@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
+  const { t, i18n } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -23,7 +26,7 @@ const Home = () => {
           m: 'auto',
         }}
       >
-        Welcome to The News App!
+        {t('welcomeText')}
       </Typography>
     </Box>
   );

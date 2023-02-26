@@ -13,14 +13,39 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useState } from 'react';
+import uaIcon from '../assets/ua.png';
+import engIcon from '../assets/eng.png';
 
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const randomImage = 'https://source.unsplash.com/1600x900/?people';
 
+const USER_NAME = 'admin';
+const PASSWORD = '12345';
+
 function Navigation() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -36,11 +61,34 @@ function Navigation() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const onLogin = () => {
+    if (userName === USER_NAME && password === PASSWORD) {
+      localStorage.setItem('isLoggedIn', true);
+      navigate('/profile');
+    }
+    handleClose();
+  };
+
+  const onLogout = () => {
+    localStorage.clear();
+    navigate('/');
+    handleCloseUserMenu();
+  };
+
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = lng => {
+    i18n.changeLanguage(lng);
+  };
+
+  const fakeInputStyle = { opacity: 0, float: 'left', border: 'none', height: '0', width: '0' };
 
   return (
     <AppBar
       position="static"
-      sx={{ bgcolor: '#336600', height: '100px', display: 'flex', justifyContent: 'center' }}
+      sx={{ bgcolor: '#336600', display: 'flex', justifyContent: 'center' }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -93,10 +141,10 @@ function Navigation() {
               }}
             >
               <MenuItem key="home" component={NavLink} to="/" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Home</Typography>
+                <Typography textAlign="center">{t('home')}</Typography>
               </MenuItem>
               <MenuItem key="news" component={NavLink} to="/news" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">News</Typography>
+                <Typography textAlign="center">{t('news')}</Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -132,7 +180,7 @@ function Navigation() {
               to="/"
               onClick={handleCloseNavMenu}
             >
-              Home
+              {t('home')}
             </Button>
             <Button
               component={NavLink}
@@ -146,58 +194,108 @@ function Navigation() {
               to="/news"
               onClick={handleCloseNavMenu}
             >
-              News
+              {t('news')}
             </Button>
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ height: '60px', width: '60px' }} alt="Remy Sharp" src={randomImage} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem
-                key="profile"
-                component={NavLink}
-                to="/profile"
-                onClick={handleCloseUserMenu}
+          {isLoggedIn ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title={t('userMenu')}>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={randomImage} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
               >
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
-              <MenuItem
-                key="logout"
-                component={NavLink}
-                to="/profile"
-                onClick={handleCloseUserMenu}
-              >
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 0, pl: 5 }}>
-            <Tooltip title="Log In">
-              <IconButton key="login" component={Link} to="/login">
-                <LoginTwoToneIcon sx={{ p: 0, m: 0, color: 'white' }} />
-              </IconButton>
-            </Tooltip>
+                <MenuItem
+                  key="profile"
+                  component={NavLink}
+                  to="/profile"
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">{t('profile')}</Typography>
+                </MenuItem>
+                <MenuItem key="logout" onClick={onLogout}>
+                  <Typography textAlign="center">{t('logout')}</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          ) : (
+            <Box sx={{ flexGrow: 0, pl: 5 }}>
+              <Tooltip title={t('login')}>
+                <IconButton key="login" variant="outlined" onClick={handleClickOpen}>
+                  <LoginTwoToneIcon sx={{ p: 0, m: 0, color: 'white' }} />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
+          <Box sx={{ pl: 5 }}>
+            <IconButton onClick={() => changeLanguage('ua')} sx={{ p: 0 }}>
+              <img src={uaIcon} alt="Ukrainian-language" height="35px" />
+            </IconButton>
+            <IconButton onClick={() => changeLanguage('en')} sx={{ p: 0 }}>
+              <img src={engIcon} alt="English-language" height="35px" />
+            </IconButton>
           </Box>
         </Toolbar>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>{t('login')}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>{t('dialogContent')}</DialogContentText>
+            <form>
+              <input
+                type="password"
+                name="fake-password"
+                autoComplete="new-password"
+                tabIndex="-1"
+                style={fakeInputStyle}
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label={t('nameField')}
+                type="name"
+                fullWidth
+                variant="standard"
+                value={userName}
+                onChange={event => {
+                  setUserName(event.target.value);
+                }}
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="password"
+                label={t('passwordField')}
+                type="password"
+                fullWidth
+                variant="standard"
+                value={password}
+                onChange={event => {
+                  setPassword(event.target.value);
+                }}
+              />
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>{t('cancel')}</Button>
+            <Button onClick={onLogin}>{t('login')}</Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </AppBar>
   );
