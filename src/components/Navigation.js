@@ -153,7 +153,7 @@ function Navigation() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -242,7 +242,7 @@ function Navigation() {
               </Tooltip>
             </Box>
           )}
-          <Box sx={{ pl: 5 }}>
+          <Box sx={{ pl: 1 }}>
             <IconButton onClick={() => changeLanguage('ua')} sx={{ p: 0 }}>
               <img src={uaIcon} alt="Ukrainian-language" height="35px" />
             </IconButton>
@@ -277,7 +277,6 @@ function Navigation() {
                 }}
               />
               <TextField
-                autoFocus
                 margin="dense"
                 id="password"
                 label={t('passwordField')}

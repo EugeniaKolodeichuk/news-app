@@ -40,7 +40,7 @@ const News = () => {
   const getTitle = post => post.body.charAt(0).toUpperCase() + post.body.slice(1);
 
   return (
-    <Box sx={{ width: '80%', m: 'auto' }}>
+    <Box sx={{ width: '80%', mr: 'auto', ml: 'auto', mt: '10px' }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {posts &&
           posts.map(post => (
@@ -54,10 +54,13 @@ const News = () => {
                 alignItems: 'center',
                 display: 'flex',
                 flexDirection: 'column',
+                width: '100%',
+                mr: 'auto',
+                ml: 'auto',
               }}
             >
-              <img width="500px" src={randomImage} />
-              <Item key={post.id} sx={{ fontWeight: 'bold' }}>
+              <img width="90%" src={randomImage} />
+              <Item key={post.id} sx={{ fontWeight: 'bold', width: { sx: '200px' } }}>
                 {getTitle(post)}
               </Item>
               <Item>{getTitle(post)}</Item>
