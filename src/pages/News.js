@@ -1,20 +1,14 @@
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { Image } from '@mui/icons-material';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, fetchPosts } from '../redux/operations';
-import { removePost } from '../redux/operations';
+import { styled } from '@mui/material/styles';
+import { Grid, Paper, Box, Button } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
+  backgroundColor: 'white',
   padding: theme.spacing(1),
   textAlign: 'center',
-  color: theme.palette.text.secondary,
+  color: 'black',
 }));
 
 const randomImage = 'https://source.unsplash.com/1600x900/?business';
@@ -34,7 +28,6 @@ const News = () => {
 
   const onDelete = id => {
     dispatch(deletePost(id));
-    console.log('posts', posts);
   };
 
   const getTitle = post => post.body.charAt(0).toUpperCase() + post.body.slice(1);
@@ -59,15 +52,17 @@ const News = () => {
                 ml: 'auto',
               }}
             >
-              <img width="90%" src={randomImage} />
+              <img width="90%" src={randomImage} alt="newsImg" />
               <Item key={post.id} sx={{ fontWeight: 'bold', width: { sx: '200px' } }}>
                 {getTitle(post)}
               </Item>
               <Item>{getTitle(post)}</Item>
             </Grid>
           ))}
+        <Button sx={{ m: '10px auto' }} onClick={loadMore}>
+          Load more
+        </Button>
       </Grid>
-      <button onClick={loadMore}>Load more</button>
     </Box>
   );
 };
