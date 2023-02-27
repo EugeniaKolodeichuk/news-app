@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addUserNameAction } from '../redux/reducers/userReducer';
 import { useTranslation } from 'react-i18next';
 import {
   Dialog,
@@ -21,6 +23,7 @@ const LoginDialog = ({ open }) => {
   const [userName, setUserName] = useState('');
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsOpen(open);
@@ -29,9 +32,11 @@ const LoginDialog = ({ open }) => {
   const handleClose = () => {
     setIsOpen(false);
   };
+
   const onLogin = () => {
     if (userName === USER_NAME && password === PASSWORD) {
       localStorage.setItem('isLoggedIn', true);
+      dispatch(addUserNameAction(userName));
       navigate('/profile');
     }
     handleClose();

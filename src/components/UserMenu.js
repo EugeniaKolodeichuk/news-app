@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addUserNameAction } from '../redux/reducers/userReducer';
 import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
 
 const randomImage = 'https://source.unsplash.com/1600x900/?people';
 
 const UserMenu = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenUserMenu = event => {
@@ -21,6 +23,7 @@ const UserMenu = () => {
 
   const onLogout = () => {
     localStorage.clear();
+    dispatch(addUserNameAction(''));
     navigate('/');
     handleCloseUserMenu();
   };
@@ -48,9 +51,6 @@ const UserMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem key="profile" component={NavLink} to="/profile" onClick={handleCloseUserMenu}>
-          <Typography textAlign="center">{t('profile')}</Typography>
-        </MenuItem>
         <MenuItem key="logout" onClick={onLogout}>
           <Typography textAlign="center">{t('logout')}</Typography>
         </MenuItem>
