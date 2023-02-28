@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, fetchPosts } from '../redux/operations';
 import { styled } from '@mui/material/styles';
 import { Grid, Paper, Box, Button } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'white',
@@ -39,7 +40,7 @@ const News = () => {
           posts.map(post => (
             <Grid
               onClick={() => onDelete(post.id)}
-              key={post.id}
+              key={uuidv4()}
               item
               xs={6}
               sx={{
@@ -53,7 +54,7 @@ const News = () => {
               }}
             >
               <img width="90%" src={randomImage} alt="newsImg" />
-              <Item key={post.id} sx={{ fontWeight: 'bold', width: { sx: '200px' } }}>
+              <Item key={uuidv4()} sx={{ fontWeight: 'bold', width: { sx: '200px' } }}>
                 {getTitle(post)}
               </Item>
               <Item>{getTitle(post)}</Item>

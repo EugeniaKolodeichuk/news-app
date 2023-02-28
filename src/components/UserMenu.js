@@ -4,6 +4,7 @@ import { addUserNameAction } from '../redux/reducers/userReducer';
 import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 const randomImage = 'https://source.unsplash.com/1600x900/?people';
 
@@ -22,10 +23,10 @@ const UserMenu = () => {
   };
 
   const onLogout = () => {
-    localStorage.clear();
-    dispatch(addUserNameAction(''));
-    navigate('/');
     handleCloseUserMenu();
+    localStorage.clear();
+    dispatch(addUserNameAction(null));
+    navigate('/');
   };
 
   return (
@@ -51,7 +52,7 @@ const UserMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem key="logout" onClick={onLogout}>
+        <MenuItem key={uuidv4()} onClick={onLogout}>
           <Typography textAlign="center">{t('logout')}</Typography>
         </MenuItem>
       </Menu>

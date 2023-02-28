@@ -3,9 +3,12 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Box, IconButton, Typography, Menu, MenuItem, Button } from '@mui/material';
+import { Box, IconButton, Typography, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
+import { v4 as uuidv4 } from 'uuid';
+import NavigationItem from './NavigationItem';
+import { navItems, protectedItem } from '../data/navigation';
 
 function Navigation() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -71,15 +74,26 @@ function Navigation() {
             display: { xs: 'block', md: 'none' },
           }}
         >
-          <MenuItem key="home" component={NavLink} to="/" onClick={handleCloseNavMenu}>
-            <Typography textAlign="center">{t('home')}</Typography>
-          </MenuItem>
-          <MenuItem key="news" component={NavLink} to="/news" onClick={handleCloseNavMenu}>
-            <Typography textAlign="center">{t('news')}</Typography>
-          </MenuItem>
+          {navItems.map(item => {
+            return (
+              <MenuItem
+                key={uuidv4()}
+                component={NavLink}
+                to={item.route}
+                onClick={handleCloseNavMenu}
+              >
+                <Typography textAlign="center">{t(`${item.title}`)}</Typography>
+              </MenuItem>
+            );
+          })}
           {(user || isLoggedIn) && (
-            <MenuItem key="news" component={NavLink} to="/profile" onClick={handleCloseNavMenu}>
-              <Typography textAlign="center">{t('profile')}</Typography>
+            <MenuItem
+              key={uuidv4()}
+              component={NavLink}
+              to={`${protectedItem.route}`}
+              onClick={handleCloseNavMenu}
+            >
+              <Typography textAlign="center">{t(`${protectedItem.title}`)}</Typography>
             </MenuItem>
           )}
         </Menu>
@@ -104,49 +118,23 @@ function Navigation() {
         NEWS
       </Typography>
       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-        <Button
-          component={NavLink}
-          style={{
-            textDecoration: 'none',
-            textTransform: 'uppercase',
-            color: 'white',
-            display: 'block',
-            padding: '8px 6px',
-          }}
-          to="/"
-          onClick={handleCloseNavMenu}
-        >
-          {t('home')}
-        </Button>
-        <Button
-          component={NavLink}
-          style={{
-            textDecoration: 'none',
-            textTransform: 'uppercase',
-            color: 'white',
-            display: 'block',
-            padding: '8px 6px',
-          }}
-          to="/news"
-          onClick={handleCloseNavMenu}
-        >
-          {t('news')}
-        </Button>
+        {navItems.map(item => {
+          return (
+            <NavigationItem
+              key={uuidv4()}
+              title={item.title}
+              route={item.route}
+              onClick={handleCloseNavMenu}
+            />
+          );
+        })}
         {(user || isLoggedIn) && (
-          <Button
-            component={NavLink}
-            style={{
-              textDecoration: 'none',
-              textTransform: 'uppercase',
-              color: 'white',
-              display: 'block',
-              padding: '8px 6px',
-            }}
-            to="/profile"
+          <NavigationItem
+            key={uuidv4()}
+            title={`${protectedItem.title}`}
+            route={protectedItem.route}
             onClick={handleCloseNavMenu}
-          >
-            {t('profile')}
-          </Button>
+          />
         )}
       </Box>
     </>

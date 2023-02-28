@@ -6,24 +6,14 @@ const Home = () => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        height: '90vh',
-        display: 'flex',
-        justifyItems: 'center',
-        alignItems: 'center',
-        margin: 'auto',
-      }}
-    >
+    <Box>
       <Typography
         variant="h2"
         sx={{
           color: '#336600',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          m: 'auto',
+          mt: '30px',
         }}
       >
         {t('welcomeText')}
