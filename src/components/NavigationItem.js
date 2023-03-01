@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 const NavigationItem = ({ route, title, onClick }) => {
   const { t } = useTranslation();
+
   return (
     <Button
       component={NavLink}

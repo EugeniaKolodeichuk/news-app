@@ -1,17 +1,17 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router';
-import { Layout } from './Layout';
+import { useSelector } from 'react-redux';
+import Layout from './Layout';
 import News from '../pages/News';
 import Protected from './Protected';
-import { useSelector } from 'react-redux';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const ProfilePage = lazy(() => import('../pages/Profile'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
-function App() {
+const App = () => {
   const isLoggedIn = localStorage.getItem('isLoggedIn');
-  const user = useSelector(state => state.userName.userName);
+  const user = useSelector(({ name }) => name.userName);
 
   return (
     <Routes>
@@ -30,6 +30,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

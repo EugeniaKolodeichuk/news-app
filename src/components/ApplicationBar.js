@@ -5,8 +5,8 @@ import LanguageToggle from './LanguageToggle';
 import UserMenu from './UserMenu';
 import AuthNav from './AuthNav';
 
-export const ApplicationBar = () => {
-  const userName = useSelector(state => state.userName.userName);
+const ApplicationBar = () => {
+  const userName = useSelector(({ name }) => name.userName);
   const isLoggedIn = localStorage.getItem('isLoggedIn');
 
   return (
@@ -24,3 +24,5 @@ export const ApplicationBar = () => {
     </AppBar>
   );
 };
+
+export default ApplicationBar;

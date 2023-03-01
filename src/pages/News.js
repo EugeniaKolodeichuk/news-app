@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, fetchPosts } from '../redux/operations';
+import { v4 as uuidv4 } from 'uuid';
+import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
 import { Grid, Paper, Box, Button } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'white',
@@ -17,8 +18,9 @@ const randomImage = 'https://source.unsplash.com/1600x900/?business';
 const News = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
-  const posts = useSelector(state => state.posts.posts);
+  const posts = useSelector(({ posts }) => posts.posts);
 
   useEffect(() => loadMore, []);
 
@@ -27,11 +29,8 @@ const News = () => {
     dispatch(fetchPosts(page));
   };
 
-  const onDelete = id => {
-    dispatch(deletePost(id));
-  };
-
-  const getTitle = post => post.body.charAt(0).toUpperCase() + post.body.slice(1);
+  const onDelete = id => dispatch(deletePost(id));
+  const getTitle = text => text.charAt(0).toUpperCase() + text.slice(1);
 
   return (
     <Box sx={{ width: '80%', mr: 'auto', ml: 'auto', mt: '10px' }}>
@@ -39,7 +38,6 @@ const News = () => {
         {posts &&
           posts.map(post => (
             <Grid
-              onClick={() => onDelete(post.id)}
               key={uuidv4()}
               item
               xs={6}
@@ -53,15 +51,61 @@ const News = () => {
                 ml: 'auto',
               }}
             >
-              <img width="90%" src={randomImage} alt="newsImg" />
-              <Item key={uuidv4()} sx={{ fontWeight: 'bold', width: { sx: '200px' } }}>
-                {getTitle(post)}
+              <Item sx={{ background: 'rgba(255, 255, 255, 0.8)' }}>
+                <img width="100%" src={randomImage} alt="newsImg" />
+                <Item
+                  key={uuidv4()}
+                  sx={{
+                    fontWeight: 'bold',
+                    width: '100%',
+                    background: 'transparent',
+                    border: 'none',
+                    padding: '0',
+                    boxShadow: 'none',
+                  }}
+                >
+                  {getTitle(post.title)}
+                </Item>
+                <Item
+                  sx={{
+                    width: '100%',
+                    background: 'transparent',
+                    padding: '0',
+                    boxShadow: 'none',
+                  }}
+                >
+                  {getTitle(post.body)}
+                </Item>
               </Item>
-              <Item>{getTitle(post)}</Item>
+              <Button
+                sx={{
+                  m: '10px auto',
+                  width: '100%',
+                  color: '#336600',
+                  background: 'rgba(255, 255, 255, 0.8)',
+                  '&:hover': {
+                    background: 'rgba(255, 255, 255, 0.2)',
+                  },
+                }}
+                onClick={() => onDelete(post.id)}
+              >
+                {t('delete')}
+              </Button>
             </Grid>
           ))}
-        <Button sx={{ m: '10px auto' }} onClick={loadMore}>
-          Load more
+        <Button
+          sx={{
+            m: '10px auto',
+            width: '100%',
+            color: '#336600',
+            background: 'rgba(255, 255, 255, 0.8)',
+            '&:hover': {
+              background: 'rgba(255, 255, 255, 0.2)',
+            },
+          }}
+          onClick={loadMore}
+        >
+          {t('loadMore')}
         </Button>
       </Grid>
     </Box>

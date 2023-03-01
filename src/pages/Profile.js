@@ -1,9 +1,12 @@
-import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Box, Typography } from '@mui/material';
 
 const Profile = () => {
-  const userName = useSelector(state => state.userName.userName);
+  const userName = useSelector(({ name }) => name.userName);
+  const { t } = useTranslation();
+
   return (
     <Box>
       <Typography
@@ -15,7 +18,7 @@ const Profile = () => {
           mt: '30px',
         }}
       >
-        Welcome, {userName}
+        {t('welcome')}, {userName}
       </Typography>
     </Box>
   );

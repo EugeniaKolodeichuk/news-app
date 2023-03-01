@@ -10,20 +10,15 @@ import { v4 as uuidv4 } from 'uuid';
 import NavigationItem from './NavigationItem';
 import { navItems, protectedItem } from '../data/navigation';
 
-function Navigation() {
+const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const { t } = useTranslation();
 
-  const user = useSelector(state => state.userName.userName);
+  const user = useSelector(({ name }) => name.userName);
   const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-  const handleOpenNavMenu = event => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const handleOpenNavMenu = ({ currentTarget }) => setAnchorElNav(currentTarget);
+  const handleCloseNavMenu = () => setAnchorElNav(null);
 
   return (
     <>
@@ -139,5 +134,5 @@ function Navigation() {
       </Box>
     </>
   );
-}
+};
 export default Navigation;

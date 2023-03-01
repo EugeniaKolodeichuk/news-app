@@ -14,13 +14,8 @@ const UserMenu = () => {
   const dispatch = useDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const handleOpenUserMenu = event => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const handleOpenUserMenu = ({ currentTarget }) => setAnchorElUser(currentTarget);
+  const handleCloseUserMenu = () => setAnchorElUser(null);
 
   const onLogout = () => {
     handleCloseUserMenu();

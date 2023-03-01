@@ -7,9 +7,7 @@ import engIcon from '../assets/eng.png';
 const LanguageToggle = () => {
   const { i18n } = useTranslation();
 
-  const changeLanguage = lng => {
-    i18n.changeLanguage(lng);
-  };
+  const changeLanguage = lng => i18n.changeLanguage(lng);
 
   return (
     <Box sx={{ pl: 1 }}>

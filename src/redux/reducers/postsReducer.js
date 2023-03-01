@@ -6,13 +6,15 @@ const ADD_ALL_POSTS = 'ADD_ALL_POSTS';
 const REMOVE_POST = 'REMOVE_POST';
 
 export const postsReducer = (state = defaultState, action) => {
-  switch (action.type) {
+  const { payload, type } = action;
+
+  switch (type) {
     case ADD_ALL_POSTS:
-      return { ...state, posts: [...state.posts, ...action.payload] };
+      return { ...state, posts: [...state.posts, ...payload] };
     case REMOVE_POST:
       return {
         ...state,
-        posts: state.posts.filter(post => post.id !== action.payload),
+        posts: state.posts.filter(({ id }) => id !== payload),
       };
     default:
       return state;

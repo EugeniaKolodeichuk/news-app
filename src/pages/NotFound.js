@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 
 const NotFound = () => {
+  const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -23,7 +26,7 @@ const NotFound = () => {
           m: 'auto',
         }}
       >
-        Sorry, page not found.
+        {t('notFound')}
       </Typography>
     </Box>
   );

@@ -5,10 +5,10 @@ const defaultState = {
 const ADD_USER_NAME = 'ADD_USER_NAME';
 
 export const userReducer = (state = defaultState, action) => {
-  switch (action.type) {
+  const { payload, type } = action;
+  switch (type) {
     case ADD_USER_NAME:
-      console.log(action);
-      return { ...state, userName: action.payload };
+      return { ...state, userName: payload };
 
     default:
       return state;
