@@ -22,9 +22,11 @@ const News = () => {
 
   const posts = useSelector(({ posts }) => posts.posts);
 
-  useEffect(() => loadMore, []);
+  useEffect(() => {
+    loadPosts(0);
+  }, []);
 
-  const loadMore = () => {
+  const loadPosts = () => {
     setPage(page + 1);
     dispatch(fetchPosts(page));
   };
@@ -103,7 +105,7 @@ const News = () => {
               background: 'rgba(255, 255, 255, 0.2)',
             },
           }}
-          onClick={loadMore}
+          onClick={loadPosts}
         >
           {t('loadMore')}
         </Button>
