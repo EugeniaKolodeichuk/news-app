@@ -2,10 +2,10 @@ import { lazy } from 'react';
 import { Route, Routes } from 'react-router';
 import { useSelector } from 'react-redux';
 import Layout from './Layout';
-import News from '../pages/News';
 import Protected from './Protected';
 
 const HomePage = lazy(() => import('../pages/Home'));
+const NewsPage = lazy(() => import('../pages/News'));
 const ProfilePage = lazy(() => import('../pages/Profile'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
@@ -17,7 +17,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
-        <Route path="/news" element={<News />} />
+        <Route path="/news" element={<NewsPage />} />
         <Route
           path="/profile"
           element={

@@ -5,7 +5,7 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
-import { store } from './redux/store';
+import { store } from './redux/store.ts';
 import { Provider } from 'react-redux';
 
 // import i18n (needs to be bundled ;))

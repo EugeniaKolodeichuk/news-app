@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, fetchPosts } from '../redux/operations';
+import { deletePost, fetchPosts } from '../redux/operations.ts';
 import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';

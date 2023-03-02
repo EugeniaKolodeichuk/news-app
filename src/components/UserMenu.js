@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addUserNameAction } from '../redux/reducers/userReducer';
+import { addUserNameAction } from '../redux/reducers/userReducer.ts';
 import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addUserNameAction } from '../redux/reducers/userReducer';
+import { addUserNameAction } from '../redux/reducers/userReducer.ts';
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import {
   Box,

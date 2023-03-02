@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import { v4 as uuidv4 } from 'uuid';
 import NavigationItem from './NavigationItem';
-import { navItems, protectedItem } from '../data/navigation';
+import { navItems, protectedItem } from '../data/navigation.ts';
 
 const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
