@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next';
 import uaIcon from '../assets/ua.png';
 import engIcon from '../assets/eng.png';
 
-const LanguageToggle = () => {
+const LanguageToggle: React.FC = () => {
   const { i18n } = useTranslation();
 
-  const changeLanguage = lng => i18n.changeLanguage(lng);
+  const changeLanguage = (lng: string) => i18n.changeLanguage(lng);
 
   return (
     <Box sx={{ pl: 1 }}>
-      <IconButton onClick={() => changeLanguage('ua')} sx={{ p: 0 }}>
+      <IconButton onClick={() => changeLanguage('ua')} sx={{ p: 0, mr: 1 }}>
         <img src={uaIcon} alt="Ukrainian-language" height="35px" />
       </IconButton>
       <IconButton onClick={() => changeLanguage('en')} sx={{ p: 0 }}>

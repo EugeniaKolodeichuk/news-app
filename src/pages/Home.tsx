@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const Home = () => {
+const Home: React.FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -14,6 +14,7 @@ const Home = () => {
           display: 'flex',
           justifyContent: 'center',
           mt: '30px',
+          background: 'rgba(255, 255, 255, 0.5)',
         }}
       >
         {t('welcomeText')}

@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addUserNameAction } from '../redux/reducers/userReducer.ts';
-import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
+import { addUserName } from '../redux/features/userSlice';
+import { useAppDispatch } from '../redux/store';
 
 const randomImage = 'https://source.unsplash.com/1600x900/?people';
 
-const UserMenu = () => {
+const UserMenu = (): JSX.Element => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const dispatch = useAppDispatch();
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const handleOpenUserMenu = ({ currentTarget }) => setAnchorElUser(currentTarget);
+  const handleOpenUserMenu = ({ currentTarget }: React.MouseEvent<HTMLButtonElement>) =>
+    setAnchorElUser(currentTarget);
+
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
   const onLogout = () => {
     handleCloseUserMenu();
     localStorage.clear();
-    dispatch(addUserNameAction(null));
+    dispatch(addUserName(''));
     navigate('/');
   };
 

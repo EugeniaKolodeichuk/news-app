@@ -1,23 +1,24 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Box, IconButton, Typography, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import { v4 as uuidv4 } from 'uuid';
 import NavigationItem from './NavigationItem';
-import { navItems, protectedItem } from '../data/navigation.ts';
+import { navItems, protectedItem } from '../data/navigation';
+import { useAppSelector } from '../redux/store';
 
-const Navigation = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
+const Navigation: React.FC = () => {
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
 
-  const user = useSelector(({ name }) => name.userName);
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const userName = useAppSelector(({ user }) => user.userName);
 
-  const handleOpenNavMenu = ({ currentTarget }) => setAnchorElNav(currentTarget);
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const handleOpenNavMenu = ({ currentTarget }: React.MouseEvent<HTMLButtonElement>) =>
+    setAnchorElNav(currentTarget);
   const handleCloseNavMenu = () => setAnchorElNav(null);
 
   return (
@@ -81,7 +82,7 @@ const Navigation = () => {
               </MenuItem>
             );
           })}
-          {(user || isLoggedIn) && (
+          {(userName || isLoggedIn) && (
             <MenuItem
               key={uuidv4()}
               component={NavLink}
@@ -123,7 +124,7 @@ const Navigation = () => {
             />
           );
         })}
-        {(user || isLoggedIn) && (
+        {(userName || isLoggedIn) && (
           <NavigationItem
             key={uuidv4()}
             title={`${protectedItem.title}`}

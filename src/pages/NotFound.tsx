@@ -1,10 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 
-const Profile = () => {
-  const userName = useSelector(({ name }) => name.userName);
+const NotFound: React.FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -15,13 +13,15 @@ const Profile = () => {
           color: '#336600',
           display: 'flex',
           justifyContent: 'center',
+          alignItems: 'center',
           mt: '30px',
+          background: 'rgba(255, 255, 255, 0.5)',
         }}
       >
-        {t('welcome')}, {userName}
+        {t('notFound')}
       </Typography>
     </Box>
   );
 };
 
-export default Profile;
+export default NotFound;

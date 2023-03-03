@@ -1,28 +1,17 @@
-import thunk from 'redux-thunk';
-import { applyMiddleware, combineReducers, createStore } from '@reduxjs/toolkit';
-import { composeWithDevTools } from '@redux-devtools/extension';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { postsReducer, PostState } from './reducers/postsReducer.ts';
-import { userReducer, UserState } from './reducers/userReducer.ts';
+import { configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import postReducer from './features/postsSlice';
+import userReducer from './features/userSlice';
 
-export interface RootState {
-  posts: PostState;
-  name: UserState;
-}
-
-const authPersistConfig = {
-  key: 'auth',
-  storage,
-};
-
-const persistedReducer = persistReducer(authPersistConfig, userReducer);
-
-const rootReducer = combineReducers({
-  posts: postsReducer,
-  name: persistedReducer,
+export const store = configureStore({
+  reducer: {
+    posts: postReducer,
+    user: userReducer,
+  },
 });
 
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
-export const persistor = persistStore(store);
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

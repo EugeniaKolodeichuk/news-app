@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, fetchPosts } from '../redux/operations.ts';
 import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
 import { Grid, Paper, Box, Button } from '@mui/material';
+import { fetchAllPosts, deletePost } from '../redux/features/postsSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'white',
@@ -15,24 +15,25 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const randomImage = 'https://source.unsplash.com/1600x900/?business';
 
-const News = () => {
-  const [page, setPage] = useState(1);
-  const dispatch = useDispatch();
+const News: React.FC = () => {
+  const [page, setPage] = useState<number>(1);
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const posts = useSelector(({ posts }) => posts.posts);
+  const posts = useAppSelector(({ posts }) => posts.posts);
 
   useEffect(() => {
-    loadPosts(0);
+    loadPosts();
   }, []);
 
   const loadPosts = () => {
     setPage(page + 1);
-    dispatch(fetchPosts(page));
+    dispatch(fetchAllPosts(page));
   };
 
-  const onDelete = id => dispatch(deletePost(id));
-  const getTitle = text => text.charAt(0).toUpperCase() + text.slice(1);
+  const onDelete = (id: string) => dispatch(deletePost(id));
+
+  const getTitle = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
   return (
     <Box sx={{ width: '80%', mr: 'auto', ml: 'auto', mt: '10px' }}>

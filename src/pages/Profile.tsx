@@ -1,35 +1,28 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
+import { useAppSelector } from '../redux/store';
 
-const NotFound = () => {
+const Profile: React.FC = () => {
+  const userName = useAppSelector(({ user }) => user.userName);
   const { t } = useTranslation();
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        height: '90vh',
-        display: 'flex',
-        justifyItems: 'center',
-        alignItems: 'center',
-        margin: 'auto',
-      }}
-    >
+    <Box>
       <Typography
         variant="h2"
         sx={{
           color: '#336600',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          m: 'auto',
+          mt: '30px',
+          background: 'rgba(255, 255, 255, 0.5)',
         }}
       >
-        {t('notFound')}
+        {t('welcome')}, {userName}
       </Typography>
     </Box>
   );
 };
 
-export default NotFound;
+export default Profile;

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addUserNameAction } from '../redux/reducers/userReducer.ts';
+import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import {
   Box,
@@ -18,17 +16,25 @@ import {
   DialogContentText,
   TextField,
 } from '@mui/material';
+import { addUserName } from '../redux/features/userSlice';
+import { useAppDispatch } from '../redux/store';
 
 const USER_NAME = 'admin';
 const PASSWORD = '12345';
-const fakeInputStyle = { opacity: 0, float: 'left', border: 'none', height: '0', width: '0' };
+const fakeInputStyle: object = {
+  opacity: 0,
+  float: 'left',
+  border: 'none',
+  height: '0',
+  width: '0',
+};
 
-const AuthNav = () => {
+const AuthNav: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   const handleClickOpen = () => setOpen(true);
@@ -36,8 +42,8 @@ const AuthNav = () => {
 
   const onLogin = () => {
     if (userName === USER_NAME && password === PASSWORD) {
-      localStorage.setItem('isLoggedIn', true);
-      dispatch(addUserNameAction(userName));
+      localStorage.setItem('isLoggedIn', 'true');
+      dispatch(addUserName(userName));
 
       navigate('/profile');
       toast.success(`${t('correctLogIn')}`);
@@ -54,7 +60,7 @@ const AuthNav = () => {
     <>
       <Box sx={{ flexGrow: 0, pl: 5 }}>
         <Tooltip title={t('login')}>
-          <IconButton key={uuidv4()} variant="outlined" onClick={handleClickOpen}>
+          <IconButton key={uuidv4()} onClick={handleClickOpen}>
             <LoginTwoToneIcon sx={{ p: 0, m: 0, color: 'white' }} />
           </IconButton>
         </Tooltip>
@@ -68,7 +74,7 @@ const AuthNav = () => {
               type="password"
               name="fake-password"
               autoComplete="new-password"
-              tabIndex="-1"
+              tabIndex={-1}
               style={fakeInputStyle}
             />
             <TextField

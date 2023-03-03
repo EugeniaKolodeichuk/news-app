@@ -3,7 +3,13 @@ import { NavLink } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const NavigationItem = ({ route, title, onClick }) => {
+export interface NavigationItemProps {
+  route: string;
+  title: string;
+  onClick?: () => void;
+}
+
+const NavigationItem: React.FC<NavigationItemProps> = ({ route, title, onClick }) => {
   const { t } = useTranslation();
 
   return (

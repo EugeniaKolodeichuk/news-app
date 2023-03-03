@@ -1,12 +1,13 @@
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useAppSelector } from '../redux/store';
 import { AppBar, Container, Toolbar } from '@mui/material';
 import Navigation from './Navigation';
 import LanguageToggle from './LanguageToggle';
 import UserMenu from './UserMenu';
 import AuthNav from './AuthNav';
 
-const ApplicationBar = () => {
-  const userName = useSelector(({ name }) => name.userName);
+const ApplicationBar: React.FC = () => {
+  const userName = useAppSelector(({ user }) => user.userName);
   const isLoggedIn = localStorage.getItem('isLoggedIn');
 
   return (
