@@ -42,7 +42,6 @@ const AuthNav: React.FC = () => {
 
   const onLogin = () => {
     if (userName === USER_NAME && password === PASSWORD) {
-      localStorage.setItem('isLoggedIn', 'true');
       dispatch(addUserName(userName));
 
       navigate('/profile');

@@ -11,7 +11,6 @@ const ProfilePage = lazy(() => import('../pages/Profile'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
 const App: React.FC = () => {
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
   const user = useAppSelector(({ user }) => user.userName);
 
   return (
@@ -23,7 +22,7 @@ const App: React.FC = () => {
           <Route
             path="/profile"
             element={
-              <Protected isLoggedIn={!!isLoggedIn || !!user}>
+              <Protected isLoggedIn={!!user}>
                 <ProfilePage />
               </Protected>
             }

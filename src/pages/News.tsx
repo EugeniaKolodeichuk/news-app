@@ -96,20 +96,22 @@ const News: React.FC = () => {
               </Button>
             </Grid>
           ))}
-        <Button
-          sx={{
-            m: '10px auto',
-            width: '100%',
-            color: '#336600',
-            background: 'rgba(255, 255, 255, 0.8)',
-            '&:hover': {
-              background: 'rgba(255, 255, 255, 0.2)',
-            },
-          }}
-          onClick={loadPosts}
-        >
-          {t('loadMore')}
-        </Button>
+        {posts.length && (
+          <Button
+            sx={{
+              m: '10px auto',
+              width: '100%',
+              color: '#336600',
+              background: 'rgba(255, 255, 255, 0.8)',
+              '&:hover': {
+                background: 'rgba(255, 255, 255, 0.2)',
+              },
+            }}
+            onClick={loadPosts}
+          >
+            {t('loadMore')}
+          </Button>
+        )}
       </Grid>
     </Box>
   );

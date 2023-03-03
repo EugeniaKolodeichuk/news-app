@@ -16,7 +16,6 @@ const Navigation: React.FC = () => {
 
   const userName = useAppSelector(({ user }) => user.userName);
 
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
   const handleOpenNavMenu = ({ currentTarget }: React.MouseEvent<HTMLButtonElement>) =>
     setAnchorElNav(currentTarget);
   const handleCloseNavMenu = () => setAnchorElNav(null);
@@ -82,7 +81,7 @@ const Navigation: React.FC = () => {
               </MenuItem>
             );
           })}
-          {(userName || isLoggedIn) && (
+          {userName && (
             <MenuItem
               key={uuidv4()}
               component={NavLink}
@@ -124,7 +123,7 @@ const Navigation: React.FC = () => {
             />
           );
         })}
-        {(userName || isLoggedIn) && (
+        {userName && (
           <NavigationItem
             key={uuidv4()}
             title={`${protectedItem.title}`}

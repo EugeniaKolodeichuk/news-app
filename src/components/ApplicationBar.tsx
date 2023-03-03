@@ -8,7 +8,6 @@ import AuthNav from './AuthNav';
 
 const ApplicationBar: React.FC = () => {
   const userName = useAppSelector(({ user }) => user.userName);
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
 
   return (
     <AppBar
@@ -18,7 +17,7 @@ const ApplicationBar: React.FC = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Navigation />
-          {userName || isLoggedIn ? <UserMenu /> : <AuthNav />}
+          {userName ? <UserMenu /> : <AuthNav />}
           <LanguageToggle />
         </Toolbar>
       </Container>
