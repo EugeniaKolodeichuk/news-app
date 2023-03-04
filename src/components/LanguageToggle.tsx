@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, IconButton, Tooltip, MenuItem, Menu, Typography } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
+import { Box, IconButton, Tooltip, MenuItem, Menu, Typography } from '@mui/material';
 
 const LanguageToggle: React.FC = () => {
   const { i18n, t } = useTranslation();
