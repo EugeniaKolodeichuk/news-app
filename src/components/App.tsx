@@ -1,5 +1,6 @@
 import React from 'react';
 import { lazy, Suspense } from 'react';
+import { ToastProvider } from 'react-toast-notifications';
 import { Route, Routes } from 'react-router';
 import { useAppSelector } from '../redux/store';
 import Layout from './Layout';
@@ -10,26 +11,28 @@ const NewsPage = lazy(() => import('../pages/News'));
 const ProfilePage = lazy(() => import('../pages/Profile'));
 const NotFoundPage = lazy(() => import('../pages/NotFound'));
 
-const App: React.FC = () => {
+const App = () => {
   const user = useAppSelector(({ user }) => user.userName);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/news" element={<NewsPage />} />
-          <Route
-            path="/profile"
-            element={
-              <Protected isLoggedIn={!!user}>
-                <ProfilePage />
-              </Protected>
-            }
-          />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+      <ToastProvider autoDismiss autoDismissTimeout={5000} placement="bottom-right">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route
+              path="/profile"
+              element={
+                <Protected isLoggedIn={!!user}>
+                  <ProfilePage />
+                </Protected>
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </ToastProvider>
     </Suspense>
   );
 };

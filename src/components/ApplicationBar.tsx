@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAppSelector } from '../redux/store';
 import { AppBar, Container, Toolbar } from '@mui/material';
+import { useAppSelector } from '../redux/store';
 import Navigation from './Navigation';
 import LanguageToggle from './LanguageToggle';
 import UserMenu from './UserMenu';
@@ -17,8 +17,8 @@ const ApplicationBar: React.FC = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Navigation />
-          {userName ? <UserMenu /> : <AuthNav />}
           <LanguageToggle />
+          {userName ? <UserMenu /> : <AuthNav />}
         </Toolbar>
       </Container>
     </AppBar>

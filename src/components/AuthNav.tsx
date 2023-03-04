@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { useToasts } from 'react-toast-notifications';
 import { v4 as uuidv4 } from 'uuid';
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import {
@@ -36,6 +36,7 @@ const AuthNav: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const { addToast } = useToasts();
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -45,19 +46,19 @@ const AuthNav: React.FC = () => {
       dispatch(addUserName(userName));
 
       navigate('/profile');
-      toast.success(`${t('correctLogIn')}`);
+      addToast(`${t('correctLogIn')}`, { appearance: 'success' });
     } else {
       setPassword('');
       setUserName('');
       navigate('/');
-      toast.error(`${t('errorLogIn')}`);
+      addToast(`${t('errorLogIn')}`, { appearance: 'error' });
     }
     handleClose();
   };
 
   return (
     <>
-      <Box sx={{ flexGrow: 0, pl: 5 }}>
+      <Box sx={{ flexGrow: 0 }}>
         <Tooltip title={t('login')}>
           <IconButton key={uuidv4()} onClick={handleClickOpen}>
             <LoginTwoToneIcon sx={{ p: 0, m: 0, color: 'white' }} />

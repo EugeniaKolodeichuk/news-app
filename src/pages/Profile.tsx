@@ -16,7 +16,6 @@ const Profile: React.FC = () => {
           display: 'flex',
           justifyContent: 'center',
           mt: '30px',
-          background: 'rgba(255, 255, 255, 0.5)',
         }}
       >
         {t('welcome')}, {userName}
