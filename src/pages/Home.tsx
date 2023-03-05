@@ -14,6 +14,7 @@ const Home: React.FC = () => {
           display: 'flex',
           justifyContent: 'center',
           mt: '30px',
+          padding: { xs: '10px' },
         }}
       >
         {t('welcomeText')}

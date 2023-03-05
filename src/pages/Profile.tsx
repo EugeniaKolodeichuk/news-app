@@ -16,6 +16,7 @@ const Profile: React.FC = () => {
           display: 'flex',
           justifyContent: 'center',
           mt: '30px',
+          padding: { xs: '10px' },
         }}
       >
         {t('welcome')}, {userName}

@@ -15,6 +15,7 @@ const NotFound: React.FC = () => {
           justifyContent: 'center',
           alignItems: 'center',
           mt: '30px',
+          padding: { xs: '10px' },
         }}
       >
         {t('notFound')}
