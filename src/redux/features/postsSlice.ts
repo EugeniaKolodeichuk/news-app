@@ -19,7 +19,7 @@ export const fetchAllNews = createAsyncThunk('posts/fetchByPage', async () => {
     `https://newsapi.org/v2/everything?q=apple&from=2023-04-17&to=2023-04-17&sortBy=popularity&apiKey=5b82fed7314944b4ab9f7025add8adf9`
   );
   const news: any = await response.json();
-  console.log('news', news);
+  console.log('news', news.articles);
   return news;
 });
 
