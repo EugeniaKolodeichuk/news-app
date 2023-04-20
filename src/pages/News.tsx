@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
 import { Grid, Paper, Box, Button, Toolbar, Fab } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { fetchAllPosts, deletePost, fetchAllNews } from '../redux/features/postsSlice';
+import { fetchAllPosts, deletePost } from '../redux/features/postsSlice';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import ScrollTopButton from '../components/ScrollTopButton';
 
@@ -25,18 +25,11 @@ const News: React.FC = () => {
 
   useEffect(() => {
     loadPosts();
-    loadNews();
-    console.log('load news', loadNews());
   }, []);
 
   const loadPosts = () => {
     setPage(page + 1);
     dispatch(fetchAllPosts(page));
-  };
-
-  const loadNews = () => {
-    dispatch(fetchAllNews());
-    console.log('fetch', fetchAllNews());
   };
 
   const onDelete = (id: string) => dispatch(deletePost(id));
